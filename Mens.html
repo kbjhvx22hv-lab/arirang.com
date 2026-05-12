@@ -582,9 +582,43 @@
     .banner-grid { grid-template-columns: 1fr; gap: 28px; }
     .foot-grid { grid-template-columns: 1fr 1fr; }
   }
+  /* ===== HAMBURGER & MOBILE MENU ===== */
+  .hamburger { display: none; background: none; border: none; cursor: pointer; padding: 8px; flex-direction: column; gap: 5px; z-index: 60; }
+  .ham-line { display: block; width: 20px; height: 1.5px; background: var(--ink); transition: transform .3s ease, opacity .2s ease; }
+  .ham-line.open:first-child { transform: translateY(3.25px) rotate(45deg); }
+  .ham-line.open:last-child { transform: translateY(-3.25px) rotate(-45deg); }
+  .mobile-menu-overlay {
+    display: none; position: fixed; inset: 0; z-index: 49;
+    background: rgba(0,0,0,.4); backdrop-filter: blur(4px);
+    animation: fadeIn .2s ease;
+  }
+  .mobile-menu {
+    position: absolute; top: 0; left: 0; width: 280px; height: 100%;
+    background: var(--bg); padding: 80px 28px 40px; display: flex; flex-direction: column; gap: 0;
+    box-shadow: 4px 0 24px rgba(0,0,0,.12);
+    animation: slideIn .25s ease;
+  }
+  .mm-link {
+    font-family: var(--mono); font-size: 13px; letter-spacing: .14em;
+    text-transform: uppercase; color: var(--ink); padding: 16px 0;
+    border-bottom: 1px solid var(--hairline); background: none; border-left: 0; border-right: 0; border-top: 0;
+    text-align: left; cursor: pointer; text-decoration: none; display: block; width: 100%;
+  }
+  .mm-link.active { color: var(--accent); }
+  .mm-link:hover { color: var(--accent); }
+  .mm-divider { height: 1px; background: var(--ink); opacity: .15; margin: 8px 0; }
+  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+  @keyframes slideIn { from { transform: translateX(-100%); } to { transform: translateX(0); } }
+
   @media (max-width: 720px) {
-    .top { grid-template-columns: auto 1fr auto; padding: 14px 18px; }
-    .top-left .lk:not(.active) { display: none; }
+    .top { grid-template-columns: auto auto 1fr; padding: 14px 18px; gap: 12px; }
+    .top-left { display: none; }
+    .hamburger { display: flex; }
+    .mobile-menu-overlay { display: flex; }
+    .brand-sub { display: none; }
+    .brand { align-items: flex-start; }
+    .top-right { gap: 14px; }
+    .top-right .lk { font-size: 10px; }
     .grid-airy, .grid-dense { grid-template-columns: repeat(2, 1fr); }
     .catalogue { padding: 0 14px 40px; }
     .banner { padding: 28px 18px; }

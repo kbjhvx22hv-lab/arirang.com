@@ -152,12 +152,18 @@ function Section({ cat, products, onAdd, density }) {
 
 function Header({ cartCount, onOpenCart, onSearch }) {
   const [scrolled, setScrolled] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
   useEffect(() => {
     const h = () => setScrolled(window.scrollY > 60);
     window.addEventListener("scroll", h, { passive: true });
     return () => window.removeEventListener("scroll", h);
   }, []);
+  useEffect(() => {
+    document.body.style.overflow = menuOpen ? "hidden" : "";
+    return () => { document.body.style.overflow = ""; };
+  }, [menuOpen]);
   return (
+    <>
     <header className={"top " + (scrolled ? "scrolled" : "")}>
       <nav className="top-left">
         <a className={"lk " + (SECTION === "Home" ? "active" : "")} href="index.html">Home</a>
@@ -165,6 +171,10 @@ function Header({ cartCount, onOpenCart, onSearch }) {
         <a className={"lk " + (SECTION === "Mens" ? "active" : "")} href="Mens.html">Mens</a>
         <a className={"lk " + (SECTION === "Stores" ? "active" : "")} href="Stores.html">Stores</a>
       </nav>
+      <button className="hamburger" aria-label="Menu" onClick={() => setMenuOpen(!menuOpen)}>
+        <span className={"ham-line " + (menuOpen ? "open" : "")} />
+        <span className={"ham-line " + (menuOpen ? "open" : "")} />
+      </button>
       <a className="brand" href="index.html" aria-label="Arirang home">
         <span className="brand-mark" style={{ letterSpacing: "2.2px" }}>ARIRANG</span>
         <span className="brand-sub">— MONGOLIA · ULAANBAATAR</span>
@@ -177,6 +187,23 @@ function Header({ cartCount, onOpenCart, onSearch }) {
         </button>
       </div>
     </header>
+    {menuOpen && (
+      <div className="mobile-menu-overlay" onClick={() => setMenuOpen(false)}>
+        <nav className="mobile-menu" onClick={e => e.stopPropagation()}>
+          <a className={"mm-link " + (SECTION === "Home" ? "active" : "")} href="index.html">Home</a>
+          <a className={"mm-link " + (SECTION === "Womens" ? "active" : "")} href="ARIRANG.html">Womens</a>
+          <a className={"mm-link " + (SECTION === "Mens" ? "active" : "")} href="Mens.html">Mens</a>
+          <a className={"mm-link " + (SECTION === "Stores" ? "active" : "")} href="Stores.html">Stores</a>
+          <div className="mm-divider" />
+          <button className="mm-link" onClick={() => { setMenuOpen(false); onSearch(); }}>Search</button>
+          <a className="mm-link" href="#">Login</a>
+          <button className="mm-link" onClick={() => { setMenuOpen(false); onOpenCart(); }}>
+            Bag [{String(cartCount).padStart(2, "0")}]
+          </button>
+        </nav>
+      </div>
+    )}
+    </>
   );
 }
 
