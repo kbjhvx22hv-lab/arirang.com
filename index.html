@@ -1,0 +1,628 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>ARIRANG — Home</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #ffffff;
+    --ink: #1a1815;
+    --hairline: rgba(26,24,21,.16);
+    --muted: rgba(26,24,21,.55);
+    --accent: #e10a17;
+    --font: "Montserrat", -apple-system, system-ui, sans-serif;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--font);
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+  a { color: inherit; text-decoration: none; }
+  button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; }
+
+  /* ===== TOP NAV ===== */
+  .top {
+    position: sticky; top: 0; z-index: 50;
+    display: grid; grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    padding: 18px 28px;
+    background: rgba(255,255,255,.92);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--hairline);
+  }
+  .top-left, .top-right { display: flex; gap: 22px; align-items: center; }
+  .top-right { justify-content: flex-end; }
+  .lk {
+    font-family: var(--font);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--ink);
+    position: relative; padding: 4px 0;
+    transition: color .2s ease;
+  }
+  .lk:hover { color: var(--accent); }
+  .lk.active::after, .lk:hover::after {
+    content: ""; position: absolute; left: 0; right: 0; bottom: -2px;
+    height: 1px; background: currentColor;
+  }
+  .brand { display: flex; flex-direction: column; align-items: center; line-height: 1; }
+  .brand-mark { font-size: 18px; font-weight: 700; letter-spacing: .28em; }
+  .brand-sub { font-size: 9.5px; letter-spacing: .18em; text-transform: uppercase; color: var(--muted); margin-top: 4px; }
+
+  /* ===== HERO ===== */
+  .hero {
+    min-height: 92vh;
+    display: grid;
+    grid-template-rows: 1fr auto;
+    padding: 60px 28px 28px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-eyebrow {
+    font-size: 10.5px; font-weight: 600;
+    letter-spacing: .24em; text-transform: uppercase;
+    color: var(--muted);
+    display: flex; align-items: center; gap: 14px;
+  }
+  .hero-eyebrow::before {
+    content: ""; width: 36px; height: 1px; background: var(--ink);
+  }
+  .hero-stack {
+    display: flex; flex-direction: column; justify-content: center;
+    margin-top: 36px;
+  }
+  .hero-mark {
+    font-size: clamp(56px, 13vw, 240px);
+    font-weight: 800;
+    letter-spacing: -.04em;
+    line-height: .9;
+    margin: 18px 0 0;
+    text-transform: uppercase;
+    position: relative;
+    text-wrap: balance;
+  }
+  .hero-mark .red {
+    color: var(--accent);
+    font-weight: 300;
+    font-style: italic;
+    letter-spacing: -.05em;
+  }
+  .hero-tag {
+    margin-top: 28px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+    border-top: 1px solid var(--hairline);
+    padding-top: 22px;
+  }
+  .hero-tag p {
+    margin: 0;
+    font-size: 16px;
+    line-height: 1.5;
+    max-width: 460px;
+  }
+  .hero-tag p strong { color: var(--accent); font-weight: 600; }
+  .hero-cta {
+    display: flex; gap: 12px; align-items: center;
+    justify-content: flex-end;
+  }
+  .btn {
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 14px 22px;
+    font-size: 11px; font-weight: 600;
+    letter-spacing: .16em; text-transform: uppercase;
+    border: 1px solid var(--ink);
+    transition: all .25s ease;
+  }
+  .btn:hover { background: var(--ink); color: var(--bg); }
+  .btn.solid { background: var(--ink); color: var(--bg); }
+  .btn.solid:hover { background: var(--accent); border-color: var(--accent); }
+  .btn .arrow { transition: transform .3s ease; }
+  .btn:hover .arrow { transform: translate(3px, -3px); }
+
+  .hero-meta {
+    display: flex; justify-content: space-between;
+    margin-top: 28px;
+    padding-top: 22px;
+    border-top: 1px solid var(--hairline);
+    font-size: 10.5px; letter-spacing: .12em; text-transform: uppercase;
+    color: var(--muted);
+  }
+  .hero-meta span strong { color: var(--ink); font-weight: 600; }
+
+  /* ===== ADVANTAGES ===== */
+  .why {
+    padding: 90px 28px;
+    border-top: 1px solid var(--hairline);
+    border-bottom: 1px solid var(--hairline);
+    background: var(--ink);
+    color: var(--bg);
+  }
+  .why-head {
+    display: flex; justify-content: space-between; align-items: end;
+    margin-bottom: 60px;
+    padding-bottom: 22px;
+    border-bottom: 1px solid rgba(255,255,255,.18);
+  }
+  .why-head h2 {
+    font-size: clamp(40px, 6vw, 84px);
+    font-weight: 800;
+    letter-spacing: -.025em;
+    line-height: .95;
+    margin: 0;
+    text-transform: uppercase;
+    text-wrap: balance;
+  }
+  .why-head h2 em { font-weight: 300; font-style: italic; color: var(--accent); }
+  .why-head .why-num {
+    font-size: 10.5px; font-weight: 600;
+    letter-spacing: .22em; text-transform: uppercase;
+    color: rgba(255,255,255,.5);
+  }
+  .why-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+    border-left: 1px solid rgba(255,255,255,.18);
+  }
+  .ad {
+    padding: 32px 36px 36px;
+    border-right: 1px solid rgba(255,255,255,.18);
+    transition: background .35s ease;
+    cursor: default;
+    position: relative;
+  }
+  .ad:hover { background: var(--accent); }
+  .ad-num {
+    font-size: 10.5px; font-weight: 600;
+    letter-spacing: .22em;
+    color: rgba(255,255,255,.55);
+    margin-bottom: 80px;
+    display: flex; justify-content: space-between;
+    transition: color .25s ease;
+  }
+  .ad:hover .ad-num { color: rgba(255,255,255,.85); }
+  .ad-icon {
+    width: 64px; height: 64px;
+    margin-bottom: 28px;
+    display: flex; align-items: center; justify-content: center;
+    border: 1px solid rgba(255,255,255,.4);
+    transition: transform .35s cubic-bezier(.2,.7,.2,1), border-color .25s ease;
+  }
+  .ad:hover .ad-icon { transform: rotate(-8deg) scale(1.05); border-color: rgba(255,255,255,.9); }
+  .ad-icon svg { width: 30px; height: 30px; stroke: currentColor; fill: none; stroke-width: 1.4; }
+  .ad-h {
+    font-size: 28px;
+    font-weight: 700;
+    letter-spacing: -.015em;
+    line-height: 1.05;
+    margin: 0 0 14px;
+    text-transform: uppercase;
+  }
+  .ad-h em { font-weight: 300; font-style: italic; }
+  .ad-p {
+    font-size: 13px;
+    color: rgba(255,255,255,.7);
+    line-height: 1.55;
+    margin: 0 0 22px;
+    transition: color .25s ease;
+  }
+  .ad:hover .ad-p { color: rgba(255,255,255,.92); }
+  .ad-line {
+    font-size: 10px; font-weight: 600;
+    letter-spacing: .18em; text-transform: uppercase;
+    padding-top: 14px;
+    border-top: 1px solid rgba(255,255,255,.25);
+    display: flex; justify-content: space-between;
+  }
+
+  /* ===== EXPLORE ===== */
+  .explore {
+    padding: 90px 28px;
+  }
+  .explore-head {
+    display: flex; justify-content: space-between; align-items: end;
+    margin-bottom: 36px;
+    padding-bottom: 22px;
+    border-bottom: 1px solid var(--hairline);
+  }
+  .explore-head h2 {
+    font-size: clamp(40px, 5.5vw, 76px);
+    font-weight: 800;
+    letter-spacing: -.025em;
+    margin: 0;
+    text-transform: uppercase;
+  }
+  .explore-head h2 em { font-weight: 300; font-style: italic; color: var(--accent); }
+  .explore-head .small { font-size: 10.5px; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
+  .ex-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 14px;
+    height: 540px;
+  }
+  .ex-card {
+    position: relative;
+    overflow: hidden;
+    background: #ebe5d8;
+    cursor: pointer;
+    transition: transform .5s cubic-bezier(.2,.7,.2,1);
+  }
+  .ex-card:hover { transform: translateY(-4px); }
+  .ex-card svg.bg { width: 100%; height: 100%; display: block; }
+  .ex-card .ex-label {
+    position: absolute; left: 24px; bottom: 24px; right: 24px;
+    display: flex; justify-content: space-between; align-items: end;
+    z-index: 2;
+  }
+  .ex-card .ex-name {
+    font-size: clamp(24px, 3vw, 44px);
+    font-weight: 800; line-height: 1;
+    letter-spacing: -.02em;
+    text-transform: uppercase;
+    color: var(--ink);
+  }
+  .ex-card .ex-name em { font-weight: 300; font-style: italic; color: var(--accent); }
+  .ex-card .ex-go {
+    font-size: 11px; font-weight: 600;
+    letter-spacing: .16em; text-transform: uppercase;
+    color: var(--ink);
+    border-bottom: 1px solid currentColor; padding-bottom: 2px;
+    transition: color .25s ease, transform .3s ease;
+  }
+  .ex-card:hover .ex-go { color: var(--accent); transform: translateX(4px); }
+  .ex-card .ex-tag {
+    position: absolute; top: 18px; left: 18px;
+    font-size: 9.5px; font-weight: 600;
+    letter-spacing: .18em; text-transform: uppercase;
+    color: var(--muted);
+  }
+  .ex-card.big { background: #f3ede0; }
+  .ex-card.mid { background: #e7e0d0; }
+  .ex-card.sm { background: #ddd5c2; }
+
+  /* ===== STRIPE ===== */
+  .stripe {
+    background: var(--accent);
+    color: var(--bg);
+    overflow: hidden;
+    border-top: 1px solid var(--accent);
+  }
+  .stripe-track {
+    display: flex; gap: 56px; padding: 16px 0;
+    white-space: nowrap;
+    animation: marq 30s linear infinite;
+    width: max-content;
+    font-size: 13px; font-weight: 600;
+    letter-spacing: .22em; text-transform: uppercase;
+  }
+  .stripe-track span { display: inline-flex; align-items: center; gap: 56px; }
+  .stripe-track span::after { content: "✦"; }
+  @keyframes marq { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+  /* ===== STATS ===== */
+  .stats {
+    padding: 80px 28px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    border-bottom: 1px solid var(--hairline);
+  }
+  .stat {
+    padding: 0 24px;
+    border-left: 1px solid var(--hairline);
+  }
+  .stat:first-child { border-left: 0; padding-left: 0; }
+  .stat-n {
+    font-size: clamp(48px, 6vw, 88px);
+    font-weight: 800;
+    letter-spacing: -.03em;
+    line-height: 1;
+  }
+  .stat-n em { font-weight: 300; font-style: italic; color: var(--accent); }
+  .stat-l {
+    margin-top: 14px;
+    font-size: 10.5px; font-weight: 600;
+    letter-spacing: .18em; text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  /* ===== FOOTER ===== */
+  .foot {
+    padding: 60px 28px 24px;
+    border-top: 1px solid var(--hairline);
+  }
+  .foot-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1.5fr;
+    gap: 40px;
+    padding-bottom: 36px;
+    border-bottom: 1px solid var(--hairline);
+  }
+  .fg-h {
+    font-size: 11px; font-weight: 600;
+    letter-spacing: .14em; text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 18px;
+  }
+  .fg-col p { font-size: 14px; line-height: 1.55; margin: 0; }
+  .fg-col a { display: block; padding: 4px 0; font-size: 13px; transition: color .2s, transform .2s; }
+  .fg-col a:hover { color: var(--accent); transform: translateX(4px); }
+  .sub-form { margin-top: 14px; display: flex; align-items: center; border-bottom: 1px solid var(--ink); padding-bottom: 6px; }
+  .sub-form input { flex: 1; background: transparent; border: 0; outline: none; padding: 4px 0; font: inherit; font-size: 13px; }
+  .sub-form button { font-size: 16px; padding: 0 4px; }
+  .foot-base {
+    display: flex; justify-content: space-between;
+    padding-top: 22px;
+    font-size: 10.5px; letter-spacing: .14em; text-transform: uppercase;
+    color: var(--muted);
+    flex-wrap: wrap; gap: 16px;
+  }
+
+  /* ===== ENTRY ANIMATIONS ===== */
+  @keyframes rise { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+  .anim { animation: rise .9s cubic-bezier(.2,.7,.2,1) both; }
+  .anim.d1 { animation-delay: .05s; }
+  .anim.d2 { animation-delay: .15s; }
+  .anim.d3 { animation-delay: .28s; }
+  .anim.d4 { animation-delay: .42s; }
+  .anim.d5 { animation-delay: .55s; }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 1100px) {
+    .why-grid { grid-template-columns: 1fr; }
+    .ad { border-right: 0; border-bottom: 1px solid rgba(255,255,255,.18); }
+    .why-grid { border-left: 0; }
+    .ex-grid { grid-template-columns: 1fr 1fr; height: auto; }
+    .ex-grid > .ex-card { aspect-ratio: 4/5; }
+    .ex-grid > .ex-card.big { grid-column: span 2; aspect-ratio: 21/9; }
+    .stats { grid-template-columns: repeat(2, 1fr); gap: 28px 0; }
+    .stat:nth-child(3) { border-left: 0; padding-left: 0; }
+  }
+  @media (max-width: 720px) {
+    .top { grid-template-columns: auto 1fr auto; padding: 14px 18px; }
+    .top-left .lk { font-size: 10px; }
+    .top-left .lk:not(.active) { display: none; }
+    .hero-tag { grid-template-columns: 1fr; }
+    .hero-cta { justify-content: flex-start; }
+    .hero-meta { flex-direction: column; gap: 8px; }
+    .ex-grid { grid-template-columns: 1fr; }
+    .ex-grid > .ex-card.big { grid-column: span 1; aspect-ratio: 4/5; }
+    .stats { grid-template-columns: 1fr; }
+    .stat { border-left: 0; padding-left: 0; }
+    .foot-grid { grid-template-columns: 1fr; }
+    .foot-base { flex-direction: column; gap: 6px; }
+  }
+</style>
+</head>
+<body>
+  <header class="top">
+    <nav class="top-left">
+      <a class="lk active" href="index.html">Home</a>
+      <a class="lk" href="ARIRANG.html">Womens</a>
+      <a class="lk" href="Mens.html">Mens</a>
+      <a class="lk" href="Stores.html">Stores</a>
+    </nav>
+    <a class="brand" href="index.html">
+      <span class="brand-mark">ARIRANG</span>
+      <span class="brand-sub">— New York · Seoul</span>
+    </a>
+    <div class="top-right">
+      <button class="lk" id="search-btn" aria-label="Open search">Search</button>
+      <a class="lk" href="#">Login</a>
+      <a class="lk" href="ARIRANG.html">Bag <span style="color:var(--muted)">[00]</span></a>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-stack">
+      <div class="hero-eyebrow anim d1">SPRING / SUMMER ’26 — IN STORES NOW</div>
+      <h1 class="hero-mark anim d2" style="font-size: 101px; line-height: 1; font-weight: 200; font-family: Montserrat">
+        ТРЕНД&nbsp;<span class="red" style="font-weight: 500">ЗАГВАРУУД</span><br />
+        ШИНЭ ЦУГЛУУЛГА
+      </h1>
+
+      <div class="hero-tag">
+        <p class="anim d3">
+          <strong>ARIRANG</strong> Таны хэв маягт нийцэх хамгийн сүүлийн үеийн загварын хувцаснууд нэг дор. Хязгаарлагдмал тоотой ирсэн шинэ бараануудаа амжиж сонирхоорой. Төлбөрийн уян хатан нөхцөл, хурдан хүргэлт.
+        </p>
+        <div class="hero-cta anim d4">
+          <a href="ARIRANG.html" class="btn solid">Shop Womens <span class="arrow">↗</span></a>
+          <a href="Mens.html" class="btn">Shop Mens <span class="arrow">↗</span></a>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-meta anim d5">
+      <span>EM-26.04 · <strong>Issue 12</strong></span>
+      <span>23 New <strong>Pieces</strong></span>
+      <span>Free shipping <strong>over ₮10000</strong></span>
+      <span>ARD AYUSH AVE SHULUNDUUGIIN BARUUN TALD · MGL</span>
+    </div>
+  </section>
+
+  <!-- ADVANTAGES -->
+  <section class="why">
+    <div class="why-head">
+      <h2>Why <em>Arirang</em>.</h2>
+      <span class="why-num">— 03 reasons</span>
+    </div>
+    <div class="why-grid">
+
+      <div class="ad">
+        <div class="ad-num"><span>01</span><span>SHIPPING</span></div>
+        <div class="ad-icon">
+          <svg viewBox="0 0 32 32"><rect x="2" y="9" width="17" height="14"/><path d="M19 13h7l4 5v5h-11"/><circle cx="9" cy="25" r="2.5"/><circle cx="24" cy="25" r="2.5"/></svg>
+        </div>
+        <h3 class="ad-h">Free <em>delivery</em>.</h3>
+        <p class="ad-p">Standard shipping is on us — anywhere in the US, Canada, EU and Korea. Carbon-neutral, traceable, with a 30-day return on every order. No tricks, no minimums above $120.</p>
+        <div class="ad-line"><span>Worldwide</span><span>2 — 5 days</span></div>
+      </div>
+
+      <div class="ad">
+        <div class="ad-num"><span>02</span><span>MATERIAL</span></div>
+        <div class="ad-icon">
+          <svg viewBox="0 0 32 32"><path d="M16 3l4 5 8 1-6 6 2 9-8-4-8 4 2-9-6-6 8-1z"/></svg>
+        </div>
+        <h3 class="ad-h">High-grade <em>material</em>.</h3>
+        <p class="ad-p">Heavy-weight 14oz cotton, 350gsm fleece, Italian wool and Japanese selvedge denim. Every fabric is mill-traceable and pre-washed in small batches so it lasts year after year, fade after fade.</p>
+        <div class="ad-line"><span>Mill-traceable</span><span>Pre-washed</span></div>
+      </div>
+
+      <div class="ad">
+        <div class="ad-num"><span>03</span><span>PRICE</span></div>
+        <div class="ad-icon">
+          <svg viewBox="0 0 32 32"><circle cx="16" cy="16" r="13"/><path d="M20 11h-6a3 3 0 000 6h4a3 3 0 010 6h-7M16 7v4M16 21v4"/></svg>
+        </div>
+        <h3 class="ad-h">Honest <em>pricing</em>.</h3>
+        <p class="ad-p">No middleman markups. We cut direct from the mill, sell direct from the studio, and post the per-piece cost breakdown on every product page. You pay what it costs — plus a small, fair margin.</p>
+        <div class="ad-line"><span>Direct-to-Studio</span><span>From $75</span></div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- MARQUEE STRIPE -->
+  <div class="stripe">
+    <div class="stripe-track">
+      <span>₮100'000 ТӨГРӨГӨӨС ХҮРГЭЛТ ҮНЭГҮЙ</span><span>Mill-traceable Cotton</span><span>Made in Limited Runs</span><span>ӨНДӨР ЧАНАР</span><span>УЯАН ХАТАН ҮНЭ</span>
+      <span>₮100'000 ТӨГРӨГӨӨС ХҮРГЭЛТ ҮНЭГҮЙ</span><span>Mill-traceable Cotton</span><span>Made in Limited Runs</span><span>ӨНДӨР ЧАНАР</span><span>УЯАН ХАТАН ҮНЭ</span>
+    </div>
+  </div>
+
+  <!-- EXPLORE / SHOP TEASERS -->
+  <section class="explore">
+    <div class="explore-head">
+      <h2>Shop the <em>edit</em>.</h2>
+      <span class="small">— 23 pieces · 5 categories</span>
+    </div>
+    <div class="ex-grid">
+
+      <a class="ex-card big" href="ARIRANG.html">
+        <span class="ex-tag">[ Womens · 18 pieces ]</span>
+        <svg class="bg" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+          <defs><linearGradient id="g1" x1="0" x2="1"><stop offset="0" stop-color="#f3ede0"/><stop offset="1" stop-color="#e3dac4"/></linearGradient></defs>
+          <rect width="600" height="400" fill="url(#g1)"/>
+          <g transform="translate(180 80)" stroke="rgba(0,0,0,.4)" stroke-width="1" fill="#222">
+            <path d="M70 38 Q100 28 130 38 L142 90 L160 260 L40 260 L58 90 Z"/>
+            <path d="M82 38 Q100 56 118 38" fill="rgba(0,0,0,.1)"/>
+          </g>
+          <g transform="translate(360 100)" stroke="rgba(0,0,0,.4)" stroke-width="1" fill="#a04a2c">
+            <path d="M70 38 Q100 8 130 38 Q140 48 138 60 L62 60 Q60 48 70 38 Z"/>
+            <path d="M40 65 L65 45 L78 60 L122 60 L135 45 L160 65 L185 95 L168 112 L158 102 L158 205 Q158 222 142 224 L58 224 Q42 222 42 205 L42 102 L32 112 L15 95 Z"/>
+          </g>
+        </svg>
+        <div class="ex-label">
+          <span class="ex-name">Wo<em>mens</em></span>
+          <span class="ex-go">Enter ↗</span>
+        </div>
+      </a>
+
+      <a class="ex-card mid" href="Mens.html">
+        <span class="ex-tag">[ Mens · 18 pieces ]</span>
+        <svg class="bg" viewBox="0 0 300 540" preserveAspectRatio="xMidYMid slice">
+          <rect width="300" height="540" fill="#e7e0d0"/>
+          <g transform="translate(50 120)" stroke="rgba(0,0,0,.45)" stroke-width="1" fill="#2a3848">
+            <rect x="55" y="20" width="90" height="14"/>
+            <path d="M55 34 L145 34 L150 90 L138 280 L108 280 L100 130 L92 280 L62 280 L50 90 Z"/>
+          </g>
+        </svg>
+        <div class="ex-label">
+          <span class="ex-name">Me<em>ns</em></span>
+          <span class="ex-go">Enter ↗</span>
+        </div>
+      </a>
+
+      <a class="ex-card sm" href="Stores.html">
+        <span class="ex-tag">[ Stores · 23 pieces ]</span>
+        <svg class="bg" viewBox="0 0 300 540" preserveAspectRatio="xMidYMid slice">
+          <rect width="300" height="540" fill="#ddd5c2"/>
+          <g transform="translate(70 200)" stroke="rgba(0,0,0,.45)" stroke-width="1" fill="#1a1815">
+            <path d="M40 95 Q40 50 110 45 Q180 50 180 95 L180 100 L40 100 Z"/>
+            <path d="M30 100 L195 100 L210 118 Q140 128 30 118 Z"/>
+          </g>
+          <text x="150" y="80" font-family="Montserrat" font-weight="800" font-size="32" fill="#1a1815" text-anchor="middle" letter-spacing="6">14 LISPENARD</text>
+          <text x="150" y="105" font-family="Montserrat" font-weight="500" font-size="12" fill="rgba(0,0,0,.55)" text-anchor="middle" letter-spacing="3">NYC · 서울</text>
+        </svg>
+        <div class="ex-label">
+          <span class="ex-name">Sto<em>res</em></span>
+          <span class="ex-go">Enter ↗</span>
+        </div>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- STATS -->
+  <section class="stats">
+    <div class="stat">
+      <div class="stat-n" style="font-weight: 100">14<em style="font-weight: 600">oz</em></div>
+      <div class="stat-l">Cotton weight — heavy</div>
+    </div>
+    <div class="stat">
+      <div class="stat-n" style="font-weight: 100">350<em style="font-weight: 600">gsm</em></div>
+      <div class="stat-l">Loopback fleece</div>
+    </div>
+    <div class="stat">
+      <div class="stat-n" style="font-weight: 200; font-family: Montserrat">2-5 <span style="color: rgb(225, 11, 23); font-weight: 600">days</span></div>
+      <div class="stat-l">Days · free shipping</div>
+    </div>
+    <div class="stat" style="font-weight: 200">
+      <div class="stat-n" style="font-weight: 200">30<em style="font-weight: 600">d</em></div>
+      <div class="stat-l">No-questions returns</div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="foot">
+    <div class="foot-grid">
+      <div class="fg-col">
+        <div class="fg-h">Arirang —</div>
+        <p>A small studio making quiet garments. Cut in limited runs across New York and Seoul. Built from honest materials, priced honestly, delivered free.</p>
+      </div>
+      <div class="fg-col">
+        <div class="fg-h">Shop</div>
+        <a href="ARIRANG.html">Womens</a>
+        <a href="Mens.html">Mens</a>
+        <a href="Stores.html">Stores</a>
+      </div>
+      <div class="fg-col">
+        <div class="fg-h">Studio</div>
+        <a href="#">Materials</a>
+        <a href="#">Returns</a>
+        <a href="#">Shipping</a>
+        <a href="#">Contact</a>
+      </div>
+      <div class="fg-col">
+        <div class="fg-h">Newsletter</div>
+        <p>Quiet dispatch. Once a season.</p>
+        <form class="sub-form" onsubmit="event.preventDefault();">
+          <input placeholder="email@studio.com" />
+          <button>→</button>
+        </form>
+      </div>
+    </div>
+    <div class="foot-base">
+      <span>© 2026 Arirang Studio</span>
+      <span>14 Lispenard · NYC</span>
+      <span>본사 · 서울 성수동</span>
+      <span>Privacy · Terms</span>
+    </div>
+  </footer>
+  <script src="search-overlay.js"></script>
+</body>
+</html>
