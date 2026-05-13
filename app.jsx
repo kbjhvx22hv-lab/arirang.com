@@ -181,7 +181,6 @@ function Header({ cartCount, onOpenCart, onSearch }) {
       </a>
       <div className="top-right">
         <button className="lk" onClick={onSearch}>Search</button>
-        <a className="lk" href="#">Login</a>
         <button className="lk cart-btn" onClick={onOpenCart}>
           Bag <span className="cart-num">[{String(cartCount).padStart(2, "0")}]</span>
         </button>
@@ -196,7 +195,6 @@ function Header({ cartCount, onOpenCart, onSearch }) {
           <a className={"mm-link " + (SECTION === "Stores" ? "active" : "")} href="Stores.html">Stores</a>
           <div className="mm-divider" />
           <button className="mm-link" onClick={() => { setMenuOpen(false); onSearch(); }}>Search</button>
-          <a className="mm-link" href="#">Login</a>
           <button className="mm-link" onClick={() => { setMenuOpen(false); onOpenCart(); }}>
             Bag [{String(cartCount).padStart(2, "0")}]
           </button>
